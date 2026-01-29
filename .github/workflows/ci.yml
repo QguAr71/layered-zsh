@@ -1,0 +1,245 @@
+name: Layered ZSH CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install shellcheck
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y shellcheck
+    
+    - name: Run shellcheck
+      run: |
+        find . -name "*.zsh" -type f -exec shellcheck {} +
+        find . -name "*.sh" -type f -exec shellcheck {} +
+
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Zsh
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y zsh
+    
+    - name: Syntax check Zsh files
+      run: |
+        for file in $(find . -name "*.zsh" -type f); do
+          echo "Checking $file"
+          zsh -n "$file" || exit 1
+        done
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Scan for secrets
+      run: |
+        echo "Scanning for potential secrets..."
+        
+        # Check for common secret patterns
+        if grep -r -i "ghp_[a-zA-Z0-9]\{36\}" . --exclude-dir=.git; then
+          echo "❌ GitHub tokens found!"
+          exit 1
+        fi
+        
+        if grep -r -i "sk-[a-zA-Z0-9]\{48\}" . --exclude-dir=.git; then
+          echo "❌ API keys found!"
+          exit 1
+        fi
+        
+        if grep -r -i "password.*=" . --exclude-dir=.git --exclude="*.md"; then
+          echo "❌ Potential passwords found!"
+          exit 1
+        fi
+        
+        echo "✅ No secrets detected"
+
+  structure-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check project structure
+      run: |
+        echo "Checking project structure..."
+        
+        # Required directories
+        required_dirs=("core" "security" "productivity")
+        for dir in "${required_dirs[@]}"; do
+          if [ ! -d "$dir" ]; then
+            echo "❌ Required directory $dir missing!"
+            exit 1
+          fi
+        done
+        
+        # Required files
+        required_files=("core/init.zsh" "core/aliases.zsh" "README.md" "LICENSE")
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Required file $file missing!"
+            exit 1
+          fi
+        done
+        
+        echo "✅ Project structure is valid"
+
+  documentation-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check documentation
+      run: |
+        echo "Checking documentation..."
+        
+        # Check if README has required sections
+        if ! grep -q "## 🚀 Szybki Start" README.md; then
+          echo "❌ Quick start section missing!"
+          exit 1
+        fi
+        
+        if ! grep -q "## 📋 Wymagania" README.md; then
+          echo "❌ Requirements section missing!"
+          exit 1
+        fi
+        
+        if ! grep -q "## 🛠️ Roadmap" README.md; then
+          echo "❌ Roadmap section missing!"
+          exit 1
+        fi
+        
+        echo "✅ Documentation is valid"
+
+  performance-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Zsh and tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y zsh time
+    
+    - name: Performance test
+      run: |
+        echo "Testing startup performance..."
+        
+        # Test loading time
+        start_time=$(date +%s%N)
+        zsh -c "source core/init.zsh"
+        end_time=$(date +%s%N)
+        
+        duration=$((($end_time - $start_time) / 1000000))
+        echo "Startup time: ${duration}ms"
+        
+        if [ $duration -gt 5000 ]; then
+          echo "⚠️ Startup time is slow: ${duration}ms"
+        else
+          echo "✅ Startup time is acceptable: ${duration}ms"
+        fi
+
+  integration-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Zsh
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y zsh
+    
+    - name: Integration test
+      run: |
+        echo "Running integration tests..."
+        
+        # Test if core files load without errors
+        zsh -c "
+          source core/init.zsh
+          echo '✅ Core loads successfully'
+        "
+        
+        # Test if aliases are defined
+        zsh -c "
+          source core/init.zsh
+          if command -v lhelp >/dev/null 2>&1; then
+            echo '✅ lhelp function available'
+          else
+            echo '❌ lhelp function missing'
+            exit 1
+          fi
+        "
+        
+        # Test if modes work
+        zsh -c "
+          source core/init.zsh
+          if [ -n \"\$LAYERED_MODE\" ]; then
+            echo '✅ Layered mode is set'
+          else
+            echo '❌ Layered mode not set'
+            exit 1
+          fi
+        "
+
+  build-status:
+    needs: [shellcheck, syntax-check, security-scan, structure-check, documentation-check, performance-test, integration-test]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Build Status
+      run: |
+        echo "## Build Status" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ needs.shellcheck.result }}" == "success" ]; then
+          echo "✅ Shellcheck: PASSED" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Shellcheck: FAILED" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.syntax-check.result }}" == "success" ]; then
+          echo "✅ Syntax Check: PASSED" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Syntax Check: FAILED" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.security-scan.result }}" == "success" ]; then
+          echo "✅ Security Scan: PASSED" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Security Scan: FAILED" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.structure-check.result }}" == "success" ]; then
+          echo "✅ Structure Check: PASSED" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Structure Check: FAILED" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.documentation-check.result }}" == "success" ]; then
+          echo "✅ Documentation Check: PASSED" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Documentation Check: FAILED" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.performance-test.result }}" == "success" ]; then
+          echo "✅ Performance Test: PASSED" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Performance Test: FAILED" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.integration-test.result }}" == "success" ]; then
+          echo "✅ Integration Test: PASSED" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Integration Test: FAILED" >> $GITHUB_STEP_SUMMARY
+        fi
