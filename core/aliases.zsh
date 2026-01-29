@@ -50,7 +50,124 @@ lhelp() {
   echo -e "  up            - aktualizacja systemu"
   echo -e "  cy            - Cytadela"
 
+  echo -e "\n📋 WSZYSTKIE DOSTĘPNE KOMENDY I ALIASY:"
   echo -e "─────────────────────────────────────────────────────"
+  
+  # Runtime Control
+  echo -e "\n🔧 Runtime Control:"
+  echo -e "  lpanic        - tryb paniki"
+  echo -e "  lrecover      - odblokowanie paniki"
+  echo -e "  lrestore      - przywrócenie snapshotu"
+  echo -e "  laudit        - audit sesji"
+  echo -e "  llock         - blokada edycji"
+  echo -e "  lunlock       - odblokowanie edycji"
+  
+  # Rollback System
+  echo -e "\n🔄 Rollback System:"
+  echo -e "  q_snapshot    - tworzenie snapshotu"
+  echo -e "  q_restore_last - przywrócenie ostatniego snapshotu"
+  echo -e "  q_list_snapshots - lista snapshotów"
+  echo -e "  q_rollback    - rollback systemu"
+  
+  # Systemowe
+  echo -e "\n⚙️ Systemowe:"
+  echo -e "  up            - aktualizacja systemu"
+  echo -e "  status        - status systemu"
+  echo -e "  check_system_health - sprawdzanie zdrowia systemu"
+  
+  # Profile
+  echo -e "\n👤 Profile:"
+  echo -e "  lprofile      - profil użytkownika"
+  echo -e "  lsafeboot     - przełącz safe boot"
+  
+  # AI System
+  echo -e "\n🤖 AI System:"
+  echo -e "  sc \"pytanie\"  - AI podstawowe (DeepSeek Coder)"
+  echo -e "  si \"pytanie\"  - AI rozszerzone (Llama 3.2)"
+  echo -e "  ai \"pytanie\"  - główna funkcja AI"
+  echo -e "  fix           - AI naprawa systemu"
+  echo -e "  ask-zsh \"pytanie\" - pytania o Zsh"
+  echo -e "  helpme        - pomoc AI"
+  echo -e "  explain \"komenda\" - wyjaśnienie komendy"
+  echo -e "  optimize plik - optymalizacja kodu"
+  echo -e "  changelog     - generowanie changelog z git"
+  
+  # Monitoring
+  echo -e "\n🌡️ Monitoring:"
+  echo -e "  monitor_start - start monitoringu"
+  echo -e "  monitor_stop  - stop monitoringu"
+  echo -e "  monitor_status - status monitoringu"
+  echo -e "  hud           - dynamiczny HUD"
+  echo -e "  status        - prosty status"
+  
+  # Security
+  echo -e "\n🛡️ Security:"
+  echo -e "  laudit        - ostatnie 50 wpisów"
+  echo -e "  laudit_stats  - statystyki audytu"
+  echo -e "  laudit_clean  - czyszczenie logów"
+  echo -e "  lmode immutable - tryb tylko do odczytu"
+  
+  # Quick Edit
+  echo -e "\n📝 Quick Edit:"
+  echo -e "  leinit        - edycja init.zsh"
+  echo -e "  lealias       - edycja aliases.zsh"
+  echo -e "  leai          - edycja ai.zsh"
+  
+  # Nawigacja
+  echo -e "\n🧭 Nawigacja:"
+  echo -e "  zi            - Zoxide cd"
+  echo -e "  fn            - fzf cd"
+  echo -e "  ..            - cd .."
+  echo -e "  ...           - cd ../.."
+  echo -e "  ....          - cd ../../.."
+  
+  # Systemowe aliasy
+  echo -e "\n⌨️ Systemowe:"
+  echo -e "  c             - clear"
+  echo -e "  ls            - ls --color=auto"
+  echo -e "  ll            - ls -la"
+  echo -e "  la            - ls -la"
+  echo -e "  rm            - rm -i"
+  echo -e "  cp            - cp -i"
+  echo -e "  mv            - mv -i"
+  echo -e "  v             - vim"
+  echo -e "  micro         - micro"
+  echo -e "  edit          - micro"
+  echo -e "  vi            - micro"
+  echo -e "  vim           - micro"
+  echo -e "  cy            - Cytadela"
+  echo -e "  update        - aktualizacja systemu"
+  echo -e "  cleanup       - czyszczenie systemu"
+  
+  # Katalogi
+  echo -e "\n📁 Katalogi:"
+  echo -e "  lconfig       - ~/.config/layered"
+  echo -e "  lcache        - ~/.cache/layered"
+  echo -e "  llocal        - ~/.local/share/layered"
+  
+  # AI aliasy
+  echo -e "\n🤖 AI:"
+  echo -e "  sc, si        - AI funkcje"
+  echo -e "  ask, helpme   - pomoc AI"
+  echo -e "  explain       - wyjaśnienia"
+  echo -e "  optimize      - optymalizacja"
+  
+  # Funkcje systemowe
+  echo -e "\n🔧 Funkcje systemowe:"
+  echo -e "  mkcd          - mkdir + cd"
+  echo -e "  md            - alias do mkcd"
+  
+  # Tryby pracy
+  echo -e "\n🎮 Tryby pracy:"
+  echo -e "  lmode full    - pełna funkcjonalność"
+  echo -e "  lmode immutable - tylko odczyt"
+  echo -e "  lmode safe    - tryb bezpieczny"
+  echo -e "  lfull         - skrót do full"
+  echo -e "  limmutable    - skrót do immutable"
+  echo -e "  lsafe         - skrót do safe"
+
+  echo -e "\n─────────────────────────────────────────────────────"
+  echo -e "📚 Pełna dokumentacja: https://github.com/QguAr71/layered-zsh"
   echo -e "Powrót tutaj: lhelp"
 }
 
