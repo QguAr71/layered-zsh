@@ -50,6 +50,89 @@ check_dependencies() {
     echo -e "${GREEN}✅ Wszystkie zależności spełnione${NC}"
 }
 
+# Wybór wersji
+select_version() {
+    echo -e "${BLUE}🎯 Wybieranie wersji...${NC}"
+    
+    VERSION=$(whiptail --title "Wybierz wersję Layered ZSH" --radiolist "
+🎭 Wybierz wersję最适合 Twoich potrzeb:
+
+🚀 Current Version - Pełne funkcje, AI, monitoring
+• AI integration (DeepSeek, Llama)
+• System monitoring (HUD, sensors)  
+• Security & audit features
+• 60+ poleceń i aliasów
+• Modułowa architektura
+
+🎯 Legacy Simple - Prosta, działająca, bez microservices
+• Podstawowe aliasy (ll, la, l)
+• Ładny, prosty prompt
+• 3 użyteczne funkcje
+• ~50 linii kodu
+• Dla normalnych użytkowników
+
+🏢 Enterprise Monument - Dla śmiechu i edukacji
+• 1741 linii specyfikacji
+• 17 enterprise features
+• Hybrid architecture
+• Microservices, Kubernetes
+• Nieużywane - tylko dla zabawy
+
+" 25 80 3 \
+    "current" "Current Version - Pełne funkcje, AI, monitoring" ON \
+    "legacy" "Legacy Simple - Prosta, działająca, bez microservices" OFF \
+    "enterprise" "Enterprise Monument - Dla śmiechu i edukacji" OFF \
+    3>&1 1>&2 2>&3)
+    
+    if [[ $? -ne 0 ]]; then
+        echo -e "${YELLOW}❌ Anulowano instalację${NC}"
+        exit 0
+    fi
+    
+    echo -e "${GREEN}✅ Wybrano wersję: $VERSION${NC}"
+    
+    # Jeśli wybrano legacy, uruchom prosty instalator
+    if [[ "$VERSION" == "legacy" ]]; then
+        echo -e "${BLUE}🎯 Uruchamiam instalator wersji Legacy...${NC}"
+        if [ -f "legacy/install-legacy.sh" ]; then
+            ./legacy/install-legacy.sh
+        else
+            curl -fsSL https://raw.githubusercontent.com/QguAr71/layered-zsh/main/legacy/install-legacy.sh | bash
+        fi
+        exit 0
+    fi
+    
+    # Jeśli wybrano enterprise, pokaż żart
+    if [[ "$VERSION" == "enterprise" ]]; then
+        whiptail --title "🏢 Enterprise Monument" --msgbox "
+🎭 WYBRANO ENTERPRISE MONUMENTUM!
+
+⚠️ UWAGA: To jest pomnik over-engineeringu!
+Chciałem tylko poprawić aliasy, ale AI wmówiło mi, 
+że potrzebuję platformy korporacyjnej.
+
+📊 Statystyki katastrofy sukcesu:
+• Planowane: 5 minut, 3 aliasy
+• Rzeczywistość: 2 godziny, 2400+ linii
+• Technologie: Bash → Python/Go/TypeScript + K8s
+• Funkcje: 3 → 17 enterprise features
+
+🎪 To jest najlepszy dowód na to, że w IT 
+czasem mniej znaczy więcej, ale czasem 
+więcej jest zabawniejsze!
+
+📖 Zobacz enterprise-monument/ folder
+🌐 Przeczytaj README_ENTERPRISE_JOKE.md
+
+🎭 Miłego śmiechu!
+" 25 80
+        
+        echo -e "${YELLOW}🎭 Enterprise Monumentum wybrane! (dla śmiechu)${NC}"
+        echo -e "${BLUE}📁 Zobacz folder enterprise-monument/ dla pełnej historii${NC}"
+        exit 0
+    fi
+}
+
 # Wyświetlanie informacji
 show_info() {
     whiptail --title "Layered ZSH v3.0" --msgbox "
@@ -559,6 +642,7 @@ Czy chcesz kontynuować instalację (nadpisze istniejące pliki)?
     
     # Proces instalacji
     check_dependencies
+    select_version
     show_info
     select_modules
     confirm_installation
