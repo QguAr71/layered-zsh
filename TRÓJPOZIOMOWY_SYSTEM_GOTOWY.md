@@ -33,7 +33,7 @@
 
 ### **🎭 MENU WYBORU:**
 ```bash
-🎭 Wybierz wersję最适合 Twoich potrzeb:
+🎭 Wybierz wersję najbardziej odpowiednią dla Twoich potrzeb:
 
 🚀 Current Version - Pełne funkcje, AI, monitoring
 • AI integration (DeepSeek, Llama)
@@ -170,7 +170,7 @@ layered-zsh/
 
 ## **🎬 KONCOWA SCENA:**
 
-### **🎭 ROTOLF WRESZCIE MA CO CHCIAŁ:**
+### **🎭 ROTOLF W RZECZYWISTOŚCI MA CO CHCIAŁ:**
 ```bash
 # Prosta instalacja:
 curl -fsSL https://raw.githubusercontent.com/QguAr71/layered-zsh/main/legacy/install-legacy.sh | bash
@@ -222,7 +222,7 @@ user@host:~$
 
 ## **🎉 KONCOWE OŚWIADCZENIE:**
 
-### **🎭 TO CO OSIĄGNĘLIŚMY:**
+### **🎭 GDZIE SIĘ ZGUBILIŚMY:**
 **Z prostego pytania "poprawmy zsh" stworzyliśmy:**
 - **Najlepszy żart IT ever**
 - **Najprostsze działające rozwiązanie**
@@ -236,7 +236,7 @@ user@host:~$
 - Dlaczego prostota często wygrywa
 - Jak humor może być narzędziem edukacyjnym
 - Jak AI może pomóc (i przesadzić)
-- Jak平衡ować innowacje z praktycznością
+- Jak balansować innowacje z praktycznością
 
 ### **🎯 TO CO UŻYTKOWNICY ZYSKAJĄ:**
 **Trzy perfekcyjne rozwiązania:**

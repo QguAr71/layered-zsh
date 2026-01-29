@@ -110,7 +110,7 @@ My: "A może to będzie korporacyjny monumentum?"
 - Będzie zarabiał "enterprise subscriptions"
 ```
 
-#### **🎯 RZECZYWISTOŚĆ:**
+#### **🎯 RZECZYWISTOŚCI:**
 ```bash
 - "Dlaczego mój terminal jest taki skomplikowany?"
 - "Co to jest docker-compose?"
