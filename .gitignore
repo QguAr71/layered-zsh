@@ -1,0 +1,34 @@
+# .gitignore dla Layered ZSH
+
+# Pliki tymczasowe i cache
+*.tmp
+*.log
+*.cache
+.cache/
+
+# Pliki systemowe (nie chcemy ich w repozytorium)
+.monitor_pid
+.layered_safe
+.layered_panic
+
+# Cache AI
+.cache/layered_ai/
+
+# Snapshoty
+.local/share/layered/snapshots/
+
+# Pliki konfiguracyjne użytkownika (zawierają dane osobiste)
+.zshrc
+.zsh_history
+.zcompdump*
+
+# Edytor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Systemowe
+.DS_Store
+Thumbs.db
