@@ -33,6 +33,9 @@ setopt appendhistory sharehistory incappendhistory histignorealldups histreduceb
 # Backup/Restore system
 [[ -f "$HOME/.config/layered/core/backup.zsh" ]] && source "$HOME/.config/layered/core/backup.zsh"
 
+# Auto-update system
+[[ -f "$HOME/.config/layered/core/auto_update.zsh" ]] && source "$HOME/.config/layered/core/auto_update.zsh"
+
 # Create snapshot on start (tylko jeśli nie ma błędów)
 if q_snapshot 2>/dev/null; then
   echo "✅ Snapshot utworzony"

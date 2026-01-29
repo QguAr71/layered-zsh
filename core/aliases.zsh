@@ -175,6 +175,16 @@ lhelp() {
   echo -e "  lbackup_info  - informacje o systemie backup"
   echo -e "  lb / lr       - skróty do backup/restore"
 
+  # Auto-Update
+  echo -e "\n🔄 Auto-Update:"
+  echo -e "  lupdate_enable - włącz auto-update"
+  echo -e "  lupdate_disable - wyłącz auto-update"
+  echo -e "  lupdate_status - status auto-update"
+  echo -e "  lupdate_now    - natychmiastowa aktualizacja"
+  echo -e "  lupdate_rollback - powrót do LKG"
+  echo -e "  lupdate_config - konfiguracja auto-update"
+  echo -e "  lue / lud / lus / lun / lur / luc - skróty"
+
   echo -e "\n─────────────────────────────────────────────────────"
   echo -e "📚 Pełna dokumentacja: https://github.com/QguAr71/layered-zsh"
   echo -e "Powrót tutaj: lhelp"
