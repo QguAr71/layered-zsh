@@ -7,6 +7,9 @@
 
 export LAYERED_INIT_DONE=1
 
+# Local configuration (secrets) - wczytaj jako pierwsze!
+[[ -f "$HOME/.config/layered/.local.zsh" ]] && source "$HOME/.config/layered/.local.zsh"
+
 # Safe boot flag
 export LAYERED_SAFEBOOT=0
 [[ -f "$HOME/.layered_safe" ]] && export LAYERED_SAFEBOOT=1

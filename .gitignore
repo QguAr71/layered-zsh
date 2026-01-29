@@ -21,6 +21,7 @@
 .zshrc
 .zsh_history
 .zcompdump*
+.local.zsh
 
 # Edytor
 .vscode/

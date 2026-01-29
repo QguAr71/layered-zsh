@@ -1,0 +1,35 @@
+# =============================================================================
+# Layered ZSH - Local Configuration (SECRETS)
+# =============================================================================
+# 
+# UWAGA: Ten plik zawiera sekrety i dane osobiste!
+# NIE dodawaj do repozytorium Git!
+# 
+# Przykładowe konfiguracje (zakomentowane):
+#
+# # GitHub token (do automatyzacji)
+# export GITHUB_TOKEN="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#
+# # Ollama API key (jeśli wymagane)
+# export OLLAMA_API_KEY="sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#
+# # Inne API keys
+# export OPENAI_API_KEY="sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+# export ANTHROPIC_API_KEY="sk-ant-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#
+# # Personalne ustawienia
+# export GIT_AUTHOR_NAME="Twoje Imię"
+# export GIT_AUTHOR_EMAIL="twoj.email@example.com"
+#
+# # Custom aliases (tylko dla Ciebie)
+# alias myproject="cd ~/projects/myproject"
+# alias work="cd ~/work"
+#
+# # Custom functions
+# my_function() {
+#   echo "Twoja personalizowana funkcja"
+# }
+#
+# =============================================================================
+# DODAJ SWOJE SEKRETY PONIŻEJ
+# =============================================================================
