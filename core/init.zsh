@@ -7,9 +7,6 @@
 
 export LAYERED_INIT_DONE=1
 
-# Local configuration (secrets) - wczytaj jako pierwsze!
-[[ -f "$HOME/.config/layered/.local.zsh" ]] && source "$HOME/.config/layered/.local.zsh"
-
 # Safe boot flag
 export LAYERED_SAFEBOOT=0
 [[ -f "$HOME/.layered_safe" ]] && export LAYERED_SAFEBOOT=1
@@ -32,6 +29,9 @@ setopt appendhistory sharehistory incappendhistory histignorealldups histreduceb
 
 # Rollback + snapshot (bezpieczeństwo configu)
 [[ -f "$HOME/.config/layered/core/rollback.zsh" ]] && source "$HOME/.config/layered/core/rollback.zsh"
+
+# Backup/Restore system
+[[ -f "$HOME/.config/layered/core/backup.zsh" ]] && source "$HOME/.config/layered/core/backup.zsh"
 
 # Create snapshot on start (tylko jeśli nie ma błędów)
 if q_snapshot 2>/dev/null; then

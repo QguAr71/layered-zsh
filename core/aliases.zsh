@@ -166,6 +166,15 @@ lhelp() {
   echo -e "  limmutable    - skrót do immutable"
   echo -e "  lsafe         - skrót do safe"
 
+  # Backup/Restore
+  echo -e "\n💾 Backup/Restore:"
+  echo -e "  lbackup       - tworzenie kopii zapasowej"
+  echo -e "  lrestore      - przywracanie konfiguracji"
+  echo -e "  lbackup_list  - lista kopii zapasowych"
+  echo -e "  lbackup_clean - czyszczenie starych kopii"
+  echo -e "  lbackup_info  - informacje o systemie backup"
+  echo -e "  lb / lr       - skróty do backup/restore"
+
   echo -e "\n─────────────────────────────────────────────────────"
   echo -e "📚 Pełna dokumentacja: https://github.com/QguAr71/layered-zsh"
   echo -e "Powrót tutaj: lhelp"
