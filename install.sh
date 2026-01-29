@@ -211,24 +211,31 @@ install_modules() {
     done
 }
 
-# Moduł AI
+# Moduł AI (enhanced)
 install_ai_module() {
-    echo -e "${BLUE}🤖 Instalacja modułu AI...${NC}"
+    echo -e "${BLUE}🤖 Instalacja modułu AI (enhanced)...${NC}"
     
     # Kopiowanie plików AI
     cp "$TEMP_DIR/productivity/ai_core.zsh" "$INSTALL_DIR/productivity/"
     cp "$TEMP_DIR/productivity/ai.zsh" "$INSTALL_DIR/productivity/"
     cp "$TEMP_DIR/productivity/ai-cache.zsh" "$INSTALL_DIR/productivity/"
+    cp "$TEMP_DIR/productivity/ai_enhanced.zsh" "$INSTALL_DIR/productivity/"
     
-    # Instalacja Ollama (opcjonalnie)
-    if command -v ollama >/dev/null 2>&1; then
-        echo -e "${GREEN}✅ Ollama już zainstalowane${NC}"
+    # Interaktywna konfiguracja AI
+    echo -e "${YELLOW}🤖 Chcesz skonfigurować AI teraz?${NC}"
+    if whiptail --title "Konfiguracja AI" --yesno "Czy chcesz skonfigurować system AI teraz?\n\nMożesz wybrać darmowe modele (DeepSeek, Llama, Grok) lub dodać klucze API dla modeli płatnych (Claude, GPT)." 12 60 3>&1 1>&2 2>&3; then
+        echo -e "${BLUE}🔧 Uruchamiam konfigurację AI...${NC}"
+        
+        # Tymczasowo załaduj AI do konfiguracji
+        source "$INSTALL_DIR/productivity/ai_enhanced.zsh"
+        
+        # Uruchom konfigurację
+        ai_setup
     else
-        echo -e "${YELLOW}⚠️  Ollama nie jest zainstalowane - AI będzie ograniczone${NC}"
-        echo -e "${YELLOW}💡 Zainstaluj: curl -fsSL https://ollama.ai/install.sh | sh${NC}"
+        echo -e "${YELLOW}ℹ️  Możesz skonfigurować AI później komendą: ai_setup${NC}"
     fi
     
-    echo -e "${GREEN}✅ Moduł AI zainstalowany${NC}"
+    echo -e "${GREEN}✅ Moduł AI (enhanced) zainstalowany${NC}"
 }
 
 # Moduł monitoringu
