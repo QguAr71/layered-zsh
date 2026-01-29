@@ -84,7 +84,8 @@ Wybierz moduły Layered ZSH do zainstalowania:
     "SECURITY" "Security & audit features (audit, rollback)" ON \
     "PRODUCTIVITY" "Productivity plugins (Zinit, plugins)" ON \
     "NAVIGATION" "Navigation tools (zoxide, fzf, atuin)" ON \
-    "THEMES" "Visual themes and customization" OFF \
+    "THEMES" "Visual themes and customization" ON \
+    "P10K" "Powerlevel10k prompt integration" ON \
     "DEVELOPMENT" "Development tools and aliases" ON \
     "NETWORKING" "Network tools and diagnostics" OFF \
     "BACKUP" "Backup/Restore system" ON \
@@ -204,8 +205,8 @@ install_modules() {
             "BACKUP")
                 install_backup_module
                 ;;
-            "PERFORMANCE")
-                install_performance_module
+            "P10K")
+                install_p10k_module
                 ;;
         esac
     done
@@ -420,6 +421,22 @@ install_backup_module() {
     cp "$TEMP_DIR/core/backup.zsh" "$INSTALL_DIR/core/"
     
     echo -e "${GREEN}✅ Moduł backup zainstalowany${NC}"
+}
+
+# Moduł Powerlevel10k
+install_p10k_module() {
+    echo -e "${BLUE}🎨 Instalacja modułu Powerlevel10k...${NC}"
+    
+    # Kopiowanie plików P10K
+    cp "$TEMP_DIR/productivity/p10k.zsh" "$INSTALL_DIR/productivity/"
+    
+    # Ustaw zmienną środowiskową
+    echo "export LAYERED_USE_P10K=true" >> "$HOME/.config/layered/.local.zsh" 2>/dev/null || echo "export LAYERED_USE_P10K=true" >> "$HOME/.zshrc"
+    
+    echo -e "${GREEN}✅ Moduł Powerlevel10k zainstalowany${NC}"
+    echo -e "${YELLOW}💡 Uruchom 'source ~/.zshrc' aby załadować Powerlevel10k${NC}"
+    echo -e "${YELLOW}💡 Konfiguracja: p10k-configure${NC}"
+    echo -e "${YELLOW}💡 Motywy: p10k-themes${NC}"
 }
 
 # Moduł wydajności

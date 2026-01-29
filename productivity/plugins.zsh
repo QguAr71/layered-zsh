@@ -31,8 +31,16 @@ zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/node/node.pl
 zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/python/python.plugin.zsh
 zinit snippet https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/rust/rust.plugin.zsh
 
-# Powerlevel10k - prompt
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+# Powerlevel10k - prompt (z warunkowym ładowaniem)
+if [[ "$LAYERED_USE_P10K" == "true" ]]; then
+  echo "🎨 Ładowanie Powerlevel10k..."
+  zinit ice depth=1; zinit light romkatv/powerlevel10k
+  
+  # Załaduj integrację Layered ZSH
+  [[ -f "$HOME/.config/layered/productivity/p10k.zsh" ]] && source "$HOME/.config/layered/productivity/p10k.zsh"
+else
+  echo "⚡ Powerlevel10k wyłączone (użyj LAYERED_USE_P10K=true)"
+fi
 
 # Składnia i autouzupełnianie (działające)
 zinit light zsh-users/zsh-syntax-highlighting
